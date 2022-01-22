@@ -1,0 +1,42 @@
+@import url(../vendor/normalize.css);
+@import url(../fonts/inter.css);
+@import url(../blocks/page/page.css);
+@import url(../blocks/page/__content/page__content.css);
+
+/*HEADER*/
+
+@import url(../blocks/header/header.css);
+@import url(../blocks/header/__logo/header__logo.css);
+
+/*Profile*/
+
+@import url(../blocks/profile/profile.css);
+@import url(../blocks/profile/__info/profile__info.css);
+@import url(../blocks/profile/__name/profile__name.css);
+@import url(../blocks/profile/__add-btn/profile__add-btn.css);
+@import url(../blocks/profile/__photo/profile__photo.css);
+@import url(../blocks/profile/__edit-btn/profile__edit-btn.css);
+@import url(../blocks/profile/__about/profile__about.css);
+
+/*ELEMENTS*/
+
+@import url(../blocks/elements/elements.css);
+@import url(../blocks/elements/__element/elements__element.css);
+@import url(../blocks/elements/__photo/elements__photo.css);
+@import url(../blocks/elements/__caption/elements__caption.css);
+@import url(../blocks/elements/__like-icon/elements__like-icon.css);
+@import url(../blocks/elements/__name/elements__name.css);
+
+/*FOOTER*/
+
+@import url(../blocks/footer/footer.css);
+
+/*POPUP*/
+
+@import url(../blocks/popup/popup.css);
+@import url(../blocks/popup/__close-btn/popup__close-btn.css);
+@import url(../blocks/popup/__content/popup__container.css);
+@import url(../blocks/popup/__input/popup__input.css);
+@import url(../blocks/popup/__submit-btn/popup__submit-btn.css);
+@import url(../blocks/popup/__title/popup__title.css);
+@import url(../blocks/popup/__form/popup__form.css);
