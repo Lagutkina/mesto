@@ -1,0 +1,16 @@
+.elements__like-icon {
+  background-image: url(../../../images/like-white.svg);
+  background-size: 19px 22px;
+  width: 22px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.elements__like-icon:hover {
+  background-image: url(../../../images/like-hover.svg);
+  cursor: pointer;
+}
+
+.elements__like-icon:active {
+  background-image: url(../../../images/like-active.svg);
+}
