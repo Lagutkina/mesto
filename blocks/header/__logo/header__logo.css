@@ -8,7 +8,7 @@
   background-size: cover;
 }
 
-@media screen and (min-width:893px) {
+@media screen and (min-width:921px) {
   .header__logo {
     margin-left: 0;
     width: 142px;
