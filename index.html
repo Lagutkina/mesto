@@ -14,80 +14,82 @@
   <div class="page__content">
     <header class="header">
       <div class="header__logo"> </div>
-      <div class="header__bottom-line"></div>
     </header>
-    <section class="profile">
-      <img class="profile__photo" src="./images/profile_photo.jpg" alt="фото профиля">
-      <div class="profile__info">
+    <main>
+      <section class="profile">
+        <img class="profile__photo" src="./images/profile_photo.jpg" alt="фото профиля">
+        <div class="profile__info">
 
-        <h1 class="profile__name">Жак-Ив Кусто</h1>
-        <p class="profile__about">Исследователь океана</p>
-        <div class="profile__edit-btn"></div>
-
-
-      </div>
-      <div class="profile__add-btn">
-
-      </div>
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <p class="profile__about">Исследователь океана</p>
+          <button type="button" class="profile__edit-btn"></button>
 
 
-    </section>
-    <section class="elements">
-      <div class="elements__element">
-        <img class="elements__photo" src="./images/elements-photos/elbrus.jpeg" alt="Гора Эльбрус">
-        <div class="elements__caption">
-          <p class="elements__name">Гора Эльбрус</p>
-          <div class="elements__like-icon"></div>
         </div>
-      </div>
-      <div class="elements__element">
-        <img class="elements__photo" src="./images/elements-photos/elton.jpeg" alt="Озеро Эльтон">
-        <div class="elements__caption">
-          <p class="elements__name">Озеро Эльтон</p>
-          <div class="elements__like-icon"></div>
-        </div>
-      </div>
-      <div class="elements__element">
-        <img class="elements__photo" src="./images/elements-photos/ruskeala.jpg" alt="Рускеала">
-        <div class="elements__caption">
-          <p class="elements__name">Рускеала</p>
-          <div class="elements__like-icon"></div>
-        </div>
+        <button type="button" class="profile__add-btn">
 
-      </div>
-      <div class="elements__element">
-        <img class="elements__photo" src="./images/elements-photos/ojmjakon.jpeg" alt="Оймякон">
-        <div class="elements__caption">
-          <p class="elements__name">Оймякон</p>
-          <div class="elements__like-icon"></div>
-        </div>
-      </div>
-      <div class="elements__element">
-        <img class="elements__photo" src="./images/elements-photos/gamstul.jpg" alt="Гамсутль">
-        <div class="elements__caption">
-          <p class="elements__name">Гамсутль</p>
-          <div class="elements__like-icon"></div>
-        </div>
-      </div>
-      <div class="elements__element">
-        <img class="elements__photo" src="./images/elements-photos/vulcan-krencyna.jpeg" alt="Вулкан Кренцына">
-        <div class="elements__caption">
-          <p class="elements__name">Вулкан Кренцына</p>
-          <div class="elements__like-icon"></div>
-        </div>
-      </div>
+        </button>
 
 
-    </section>
-    <footer class="footer">
-      © 2020 Mesto Russia </footer>
+      </section>
+      <section class="elements">
+        <div class="elements__element">
+          <img class="elements__photo" src="./images/elements-photos/elbrus.jpeg" alt="Гора Эльбрус">
+          <div class="elements__caption">
+            <h2 class="elements__name">Гора Эльбрус</h2>
+            <button type="button" class="elements__like-icon"></button>
+          </div>
+        </div>
+        <div class="elements__element">
+          <img class="elements__photo" src="./images/elements-photos/elton.jpeg" alt="Озеро Эльтон">
+          <div class="elements__caption">
+            <h2 class="elements__name">Озеро Эльтон</h2>
+            <button type="button" class="elements__like-icon"></button>
+          </div>
+        </div>
+        <div class="elements__element">
+          <img class="elements__photo" src="./images/elements-photos/ruskeala.jpg" alt="Рускеала">
+          <div class="elements__caption">
+            <h2 class="elements__name">Рускеала</h2>
+            <button type="button" class="elements__like-icon"></button>
+          </div>
+
+        </div>
+        <div class="elements__element">
+          <img class="elements__photo" src="./images/elements-photos/ojmjakon.jpeg" alt="Оймякон">
+          <div class="elements__caption">
+            <h2 class="elements__name">Оймякон</h2>
+            <button type="button" class="elements__like-icon"></button>
+          </div>
+        </div>
+        <div class="elements__element">
+          <img class="elements__photo" src="./images/elements-photos/gamstul.jpg" alt="Гамсутль">
+          <div class="elements__caption">
+            <h2 class="elements__name">Гамсутль</h2>
+            <button type="button" class="elements__like-icon"></button>
+          </div>
+        </div>
+        <div class="elements__element">
+          <img class="elements__photo" src="./images/elements-photos/vulcan-krencyna.jpeg" alt="Вулкан Кренцына">
+          <div class="elements__caption">
+            <h2 class="elements__name">Вулкан Кренцына</h2>
+            <button type="button" class="elements__like-icon"></button>
+          </div>
+        </div>
+
+
+      </section>
+    </main>
+    <footer>
+      <p class="footer"> © 2020 Mesto Russia</p>
+    </footer>
 
     <section class="popup">
 
       <div class="popup__container">
-        <div class="popup__close-btn"></div>
+        <button type="button" class="popup__close-btn"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__form">
+        <form name="popup__form" class="popup__form">
           <input class="popup__input" type="text" value="" name="user-name">
           <input class="popup__input" type="text" value="" name="about">
           <input class="popup__submit-btn" type="submit" value="Сохранить">
@@ -96,7 +98,7 @@
       </div>
     </section>
   </div>
-  <script src="./index.js"></script>
+  <script src="js/index.js"></script>
 </body>
 
 </html>
