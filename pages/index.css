@@ -26,7 +26,9 @@
 @import url(../blocks/elements/__photo/elements__photo.css);
 @import url(../blocks/elements/__caption/elements__caption.css);
 @import url(../blocks/elements/__like-icon/elements__like-icon.css);
+@import url(../blocks/elements/__like-icon/_liked/elements__like-icon_liked.css);
 @import url(../blocks/elements/__name/elements__name.css);
+@import url(../blocks/elements/__delete/elements__delete.css);
 
 /*FOOTER*/
 
