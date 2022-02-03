@@ -1,11 +1,11 @@
-let profileEditBtn = document.querySelector('.profile__edit-btn');
+const profileEditBtn = document.querySelector('.profile__edit-btn');
 const popupCloseBtns = document.querySelectorAll('.popup__close-btn'); //кнопки закрытия в попапах
 
-let popupProfileEdit = document.querySelector('#popup_profile_edit');
-let profileName = document.querySelector('.profile__name');
-let profileAbout = document.querySelector('.profile__about');
-let inputUserName = document.querySelector('.popup__input[name="user-name"]');
-let inputAbout = document.querySelector('.popup__input[name="about"]');
+const popupProfileEdit = document.querySelector('#popup_profile_edit');
+const profileName = document.querySelector('.profile__name');
+const profileAbout = document.querySelector('.profile__about');
+const inputUserName = document.querySelector('.popup__input[name="user-name"]');
+const inputAbout = document.querySelector('.popup__input[name="about"]');
 
 const popupFormProfileEdit = document.querySelector(
   '.popup__form[name="profile_edit"]'
@@ -62,7 +62,7 @@ function openPopupElementAdd() {
 
 profileAddBtn.addEventListener('click', openPopupElementAdd);
 
-//функция добавления карточки из попапа
+//объявлениие функции добавления карточки из попапа
 function submitPopupElementAdd(evt) {
   evt.preventDefault();
   const card = renderElements(inputPhotoName.value, inputPhotoLink.value);
@@ -72,9 +72,22 @@ function submitPopupElementAdd(evt) {
 
 const popupFormElementAdd = document.querySelector(
   '.popup__form[name="element_add"]'
-);
+); //кнопка сабмит в форме добавления карточки
 
-popupElementAdd.addEventListener('submit', submitPopupElementAdd);
+popupElementAdd.addEventListener('submit', submitPopupElementAdd); //вызов добавления карточки
+
+//попап фото
+
+const popupImagePopup = document.querySelector('#popup_image-popup');
+const popupImage = popupImagePopup.querySelector('.popup__image');
+const popupImageName = popupImagePopup.querySelector('.popup__image-name');
+
+function openPopupImagePopup(link, name) {
+  popupImage.src = link;
+  popupImage.alt = link;
+  popupImageName.textContent = name;
+  popupImagePopup.classList.add('popup_open');
+}
 
 // Массив карточек для template
 
@@ -129,6 +142,12 @@ function renderElements(name, link) {
   deleteButton.addEventListener('click', function(evt) {
     evt.target.parentElement.remove();
   });
+
+  //Добавляем событие открытие попапа по клику на фото
+  elementsPhoto.addEventListener('click', function() {
+    openPopupImagePopup(link, name);
+  });
+
   return element;
 }
 // выводим карточки на страницу
