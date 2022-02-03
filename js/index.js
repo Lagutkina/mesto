@@ -74,7 +74,7 @@ const popupFormElementAdd = document.querySelector(
   '.popup__form[name="element_add"]'
 ); //кнопка сабмит в форме добавления карточки
 
-popupElementAdd.addEventListener('submit', submitPopupElementAdd); //вызов добавления карточки
+popupFormElementAdd.addEventListener('submit', submitPopupElementAdd); //вызов добавления карточки
 
 //попап фото
 
