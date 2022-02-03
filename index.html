@@ -35,49 +35,17 @@
 
       </section>
       <section class="elements">
-        <div class="elements__element">
-          <img class="elements__photo" src="./images/elements-photos/elbrus.jpeg" alt="Гора Эльбрус">
-          <div class="elements__caption">
-            <h2 class="elements__name">Гора Эльбрус</h2>
-            <button type="button" class="elements__like-icon"></button>
+        <template id="elements-template"> 
+          <div class="elements__element">
+            <button type="button" class="elements__delete"></button>
+            <img class="elements__photo">
+            <div class="elements__caption">
+              <h2 class="elements__name"></h2>
+              <button type="button" class="elements__like-icon"></button>
+            </div>
           </div>
-        </div>
-        <div class="elements__element">
-          <img class="elements__photo" src="./images/elements-photos/elton.jpeg" alt="Озеро Эльтон">
-          <div class="elements__caption">
-            <h2 class="elements__name">Озеро Эльтон</h2>
-            <button type="button" class="elements__like-icon"></button>
-          </div>
-        </div>
-        <div class="elements__element">
-          <img class="elements__photo" src="./images/elements-photos/ruskeala.jpg" alt="Рускеала">
-          <div class="elements__caption">
-            <h2 class="elements__name">Рускеала</h2>
-            <button type="button" class="elements__like-icon"></button>
-          </div>
+        </template>
 
-        </div>
-        <div class="elements__element">
-          <img class="elements__photo" src="./images/elements-photos/ojmjakon.jpeg" alt="Оймякон">
-          <div class="elements__caption">
-            <h2 class="elements__name">Оймякон</h2>
-            <button type="button" class="elements__like-icon"></button>
-          </div>
-        </div>
-        <div class="elements__element">
-          <img class="elements__photo" src="./images/elements-photos/gamstul.jpg" alt="Гамсутль">
-          <div class="elements__caption">
-            <h2 class="elements__name">Гамсутль</h2>
-            <button type="button" class="elements__like-icon"></button>
-          </div>
-        </div>
-        <div class="elements__element">
-          <img class="elements__photo" src="./images/elements-photos/vulcan-krencyna.jpeg" alt="Вулкан Кренцына">
-          <div class="elements__caption">
-            <h2 class="elements__name">Вулкан Кренцына</h2>
-            <button type="button" class="elements__like-icon"></button>
-          </div>
-        </div>
 
 
       </section>
@@ -86,19 +54,49 @@
       <p class="footer"> © 2020 Mesto Russia</p>
     </footer>
 
-    <section class="popup">
+    <div id="popup_profile_edit" class="popup">
 
-      <div class="popup__container">
+      <div class="popup__container popup__container_type_form">
         <button type="button" class="popup__close-btn"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form name="popup__form" class="popup__form">
+        <form name="profile_edit" class="popup__form">
           <input class="popup__input" type="text" value="" name="user-name">
           <input class="popup__input" type="text" value="" name="about">
           <input class="popup__submit-btn" type="submit" value="Сохранить">
         </form>
 
       </div>
-    </section>
+
+
+    </div>
+    <div id="popup_element_add" class="popup">
+
+      <div class="popup__container popup__container_type_form">
+        <button type="button" class="popup__close-btn"></button>
+        <h2 class="popup__title">Новое место</h2>
+        <form name="element_add" class="popup__form">
+          <input class="popup__input" placeholder="Название" type="text" value="" name="photo-name">
+          <input class="popup__input" placeholder="Ссылка на картинку" type="text" value="" name="photo-link">
+          <input class="popup__submit-btn" type="submit" value="Создать">
+        </form>
+
+      </div>
+
+
+    </div>
+    <div id="popup_image-popup" class="popup">
+
+      <div class="popup__container popup__container_type_image">
+        <button type="button" class="popup__close-btn"></button>
+        <img class="popup__image" src="./images/elements-photos/ruskeala.jpg">
+        <h2 class="popup__image-name">Имя картинкии</h2>
+
+
+
+      </div>
+
+
+    </div>
   </div>
   <script src="js/index.js"></script>
 </body>
