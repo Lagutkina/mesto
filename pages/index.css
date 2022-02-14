@@ -48,3 +48,31 @@
 @import url(../blocks/popup/__container/_type/_type_image/popup__container_type_image.css);
 @import url(../blocks/popup/__image/popup__image.css);
 @import url(../blocks/popup/__image-name/popup__image-name.css);
+.popup__input_type_error {
+  border-bottom: 1px solid #FF0000;
+}
+
+.popup__input-error {
+  font-size: 12px;
+  line-height: 15px;
+  color: #FF0000;
+  margin: 5px, 0;
+  opacity: 0;
+}
+
+.popup__input-error_active {
+  opacity: 1;
+}
+
+.popup__submit-btn_disabled {
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  opacity: 0.2;
+  color: #000000;
+  background-color: transparent;
+  pointer-events: none;
+}
+
+.popup__submit-btn_disabled:hover {
+  opacity: .2;
+}
