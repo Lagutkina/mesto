@@ -32,20 +32,38 @@ const popupImagePopup = document.querySelector('#popup_image-popup'); //попа
 const popupImage = popupImagePopup.querySelector('.popup__image'); //большое фото
 const popupImageName = popupImagePopup.querySelector('.popup__image-name'); //подпись к большому фото
 
+let escListener; //переменная для document.addEventListener
+
 //Функция Открытие любого попапа
 function openPopup(popup) {
   popup.classList.add('popup_open');
+  escListener = (evt) => {
+    if (evt.key === 'Escape') {
+      closePopup(popup);
+    }
+  };
+  document.addEventListener('keydown', escListener); //слушатель esc для закрытия попапа
 }
 
 // Функция Закрытие любого попапа
 function closePopup(popup) {
   popup.classList.remove('popup_open');
+  document.removeEventListener('keydown', escListener); //удаляем слушатель esc для закрытия попапа
 }
 
 //закрытие любого попапа по кнопке
 popups.forEach((popup) => {
   popup.addEventListener('click', (evt) => {
     if (evt.target.classList.contains('popup__close-btn')) {
+      closePopup(popup);
+    }
+  });
+});
+
+// закрытие попапа нажатием на оверлэй
+popups.forEach((popup) => {
+  popup.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('popup')) {
       closePopup(popup);
     }
   });
@@ -166,95 +184,12 @@ initialCards.forEach((item) => {
 });
 
 //ВАЛИДАЦИЯ ФОРМ//
-//
-const popupFormConfig = {
+
+enableValidation({
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__submit-btn',
   inactiveButtonClass: 'popup__submit-btn_disabled',
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__input-error_active',
-};
-// формы для попапов
-
-//показываем ошибку ввода
-
-const showInputError = (formElement, inputElement, errorMessage) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add(popupFormConfig.inputErrorClass);
-  errorElement.textContent = errorMessage;
-  errorElement.classList.add(popupFormConfig.errorClass);
-};
-
-//прячем ошибку ввода
-
-const hideInputError = (formElement, inputElement) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove(popupFormConfig.inputErrorClass);
-  errorElement.classList.remove(popupFormConfig.errorClass);
-  errorElement.textContent = '';
-};
-
-//проверяем валидность введеного в поле
-
-const checkInputValidity = (formElement, inputElement) => {
-  if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
-  } else {
-    hideInputError(formElement, inputElement);
-  }
-};
-
-//проверяем, что НЕ все поля формы валидны
-function hasInvalidInput(inputList) {
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  });
-}
-
-//функция смены состояния кнопки в зависимости от валидности инпутов
-function toggleButtonState(inputList, buttonElement) {
-  if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(popupFormConfig.inactiveButtonClass);
-    buttonElement.disabled = true;
-  } else {
-    buttonElement.classList.remove(popupFormConfig.inactiveButtonClass);
-    buttonElement.disabled = false;
-  }
-}
-
-//ставим слушатели на инпуты
-
-const setEventListeners = (formElement) => {
-  const inputList = Array.from(
-    formElement.querySelectorAll(popupFormConfig.inputSelector)
-  ); //находим каждый инпут в форме
-  const buttonElement = formElement.querySelector(
-    popupFormConfig.submitButtonSelector
-  ); //находим кнопку сабмит в форме
-  toggleButtonState(inputList, buttonElement); //выключаем кнопку с самого начала ()
-
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener('input', function() {
-      checkInputValidity(formElement, inputElement); //для каждого инпута проверяем валидность данных
-      toggleButtonState(inputList, buttonElement); //меняем кнопку, если все поля ок
-    });
-  });
-};
-
-// Валидизация всех форм
-
-function enableValidation() {
-  const formList = Array.from(
-    document.querySelectorAll(popupFormConfig.formSelector)
-  );
-  formList.forEach((formElement) => {
-    formElement.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-    });
-
-    setEventListeners(formElement);
-  });
-}
-
-enableValidation();
+});
