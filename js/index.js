@@ -17,6 +17,19 @@ const elements = document.querySelector('.elements'); //грид элемент�
 const profileAddBtn = document.querySelector('.profile__add-btn'); //кнопка добавления фото
 const popupElementAdd = document.querySelector('#popup_element_add'); //попап добавления фото
 
+const popupFormConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit-btn',
+  inactiveButtonClass: 'popup__submit-btn_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active',
+}; //объявление конфигурации для валидации попапов
+
+const popupElementAddSubmitButton = popupElementAdd.querySelector(
+  popupFormConfig.submitButtonSelector
+); //находим кнопку сабмита в попапе добавления карточек (для запуска валидации  при повторном  открытии формы добавления карточки)
+
 const inputPhotoName = document.querySelector(
   '.popup__input[name="photo-name"]'
 ); //поле ввода в форме добавления фото название
@@ -32,38 +45,33 @@ const popupImagePopup = document.querySelector('#popup_image-popup'); //попа
 const popupImage = popupImagePopup.querySelector('.popup__image'); //большое фото
 const popupImageName = popupImagePopup.querySelector('.popup__image-name'); //подпись к большому фото
 
-let escListener; //переменная для document.addEventListener
+//Функция закрытия попапа по esc
+const handleEscClose = (evt) => {
+  if (evt.key === 'Escape') {
+    closePopup(document.querySelector('.popup_open'));
+  }
+};
 
 //Функция Открытие любого попапа
 function openPopup(popup) {
   popup.classList.add('popup_open');
-  escListener = (evt) => {
-    if (evt.key === 'Escape') {
-      closePopup(popup);
-    }
-  };
-  document.addEventListener('keydown', escListener); //слушатель esc для закрытия попапа
+
+  document.addEventListener('keydown', handleEscClose); //слушатель esc для закрытия попапа
 }
 
 // Функция Закрытие любого попапа
 function closePopup(popup) {
   popup.classList.remove('popup_open');
-  document.removeEventListener('keydown', escListener); //удаляем слушатель esc для закрытия попапа
+  document.removeEventListener('keydown', handleEscClose); //удаляем слушатель esc для закрытия попапа
 }
 
-//закрытие любого попапа по кнопке
+//закрытие любого попапа по кнопке крестик или нажатием на оверлей
 popups.forEach((popup) => {
   popup.addEventListener('click', (evt) => {
-    if (evt.target.classList.contains('popup__close-btn')) {
-      closePopup(popup);
-    }
-  });
-});
-
-// закрытие попапа нажатием на оверлэй
-popups.forEach((popup) => {
-  popup.addEventListener('click', (evt) => {
-    if (evt.target.classList.contains('popup')) {
+    if (
+      evt.target.classList.contains('popup__close-btn') ||
+      evt.target.classList.contains('popup')
+    ) {
       closePopup(popup);
     }
   });
@@ -93,6 +101,7 @@ popupFormProfileEdit.addEventListener('submit', submitPopupProfileEdit);
 function openPopupElementAdd() {
   inputPhotoName.value = '';
   inputPhotoLink.value = '';
+  disableButton(popupElementAddSubmitButton, popupFormConfig);
   openPopup(popupElementAdd);
 }
 
@@ -112,7 +121,7 @@ popupFormElementAdd.addEventListener('submit', submitPopupElementAdd); //выз�
 
 function openPopupImagePopup(link, name) {
   popupImage.src = link;
-  popupImage.alt = link;
+  popupImage.alt = name;
   popupImageName.textContent = name;
   openPopup(popupImagePopup);
 }
@@ -185,11 +194,4 @@ initialCards.forEach((item) => {
 
 //ВАЛИДАЦИЯ ФОРМ//
 
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit-btn',
-  inactiveButtonClass: 'popup__submit-btn_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active',
-});
+enableValidation(popupFormConfig);
