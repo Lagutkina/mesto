@@ -1,3 +1,6 @@
+import { Card } from './Card';
+import { FormValidator } from './FormValidator';
+
 const popups = document.querySelectorAll('.popup'); //все попапы
 const profileEditBtn = document.querySelector('.profile__edit-btn'); //кнопка изменения профиля
 
@@ -10,7 +13,7 @@ const inputAbout = document.querySelector('.popup__input[name="about"]'); //по
 const popupFormProfileEdit = document.querySelector(
   '.popup__form[name="profile_edit"]'
 ); //форма изменения профиля
-
+const TEMPLATE_SELECTOR = '#elements-template';
 const elementTemplate = document.querySelector('#elements-template').content; //темплейт
 const elements = document.querySelector('.elements'); //грид элементов
 
@@ -26,10 +29,6 @@ const popupFormConfig = {
   errorClass: 'popup__input-error_active',
 }; //объявление конфигурации для валидации попапов
 
-const popupElementAddSubmitButton = popupElementAdd.querySelector(
-  popupFormConfig.submitButtonSelector
-); //находим кнопку сабмита в попапе добавления карточек (для запуска валидации  при повторном  открытии формы добавления карточки)
-
 const inputPhotoName = document.querySelector(
   '.popup__input[name="photo-name"]'
 ); //поле ввода в форме добавления фото название
@@ -44,6 +43,19 @@ const popupFormElementAdd = document.querySelector(
 const popupImagePopup = document.querySelector('#popup_image-popup'); //попап откытия большого фото
 const popupImage = popupImagePopup.querySelector('.popup__image'); //большое фото
 const popupImageName = popupImagePopup.querySelector('.popup__image-name'); //подпись к большому фото
+
+//ВАЛИДАЦИЯ ФОРМ//
+
+const profileEditValidator = new FormValidator(
+  popupFormConfig,
+  popupFormProfileEdit
+);
+profileEditValidator.enableValidation();
+const elementAddValidator = new FormValidator(
+  popupFormConfig,
+  popupFormElementAdd
+);
+elementAddValidator.enableValidation();
 
 //Функция закрытия попапа по esc
 const handleEscClose = (evt) => {
@@ -101,7 +113,8 @@ popupFormProfileEdit.addEventListener('submit', submitPopupProfileEdit);
 function openPopupElementAdd() {
   inputPhotoName.value = '';
   inputPhotoLink.value = '';
-  disableButton(popupElementAddSubmitButton, popupFormConfig);
+  elementAddValidator.disableButton();
+
   openPopup(popupElementAdd);
 }
 
@@ -110,8 +123,12 @@ profileAddBtn.addEventListener('click', openPopupElementAdd); //открыте �
 //объявлениие функции добавления карточки из попапа
 function submitPopupElementAdd(evt) {
   evt.preventDefault();
-  const card = renderElements(inputPhotoName.value, inputPhotoLink.value);
-  elements.prepend(card);
+  const card = new Card(
+    inputPhotoName.value,
+    inputPhotoLink.value,
+    TEMPLATE_SELECTOR
+  );
+  elements.prepend(card.renderCard());
   closePopup(popupElementAdd);
 }
 
@@ -154,7 +171,7 @@ const initialCards = [{
   },
 ];
 
-// Функция добавления карточек на страницу из массива
+/* Функция добавления карточек на страницу из массива
 function renderElements(name, link) {
   const element = elementTemplate
     .querySelector('.elements__element')
@@ -168,7 +185,7 @@ function renderElements(name, link) {
   elementsPhoto.alt = name;
   elementsName.textContent = name;
 
-  // Создаем работающий лайк
+ Создаем работающий лайк
   const likeButton = element.querySelector('.elements__like-icon');
   likeButton.addEventListener('click', function(evt) {
     evt.target.classList.toggle('elements__like-icon_liked');
@@ -182,16 +199,12 @@ function renderElements(name, link) {
   //Добавляем событие открытие попапа по клику на фото
   elementsPhoto.addEventListener('click', function() {
     openPopupImagePopup(link, name);
-  });
+  }); 
 
-  return element;
-}
+return element;
+}*/
 // выводим карточки на страницу
 initialCards.forEach((item) => {
-  const card = renderElements(item.name, item.link);
-  elements.append(card);
+  const card = new Card(item.name, item.link, TEMPLATE_SELECTOR);
+  elements.append(card.renderCard());
 });
-
-//ВАЛИДАЦИЯ ФОРМ//
-
-enableValidation(popupFormConfig);
