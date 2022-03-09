@@ -1,16 +1,27 @@
-export class Card {
-  constructor(name, link, templateSelector) {
+class Card {
+  constructor(name, link, templateSelector, openPopupImagePopup) {
     this._name = name; //
     this._link = link; //
-    this._templateSelector = templateSelector; //
+    this._templateSelector = templateSelector;
+    this._openPopupImagePopup = openPopupImagePopup;
   }
 
   _getTemplate() {
-    return document
-      .querySelector(this._templateSelector)
-      .content.querySelector('.elements__element')
-      .cloneNode(true);
-  }
+      return document
+        .querySelector(this._templateSelector)
+        .content.querySelector('.elements__element')
+        .cloneNode(true);
+    }
+    /* //открытие большого попапа из фото
+      _openPopupImagePopup() {
+        this._popupImagePopup = document.querySelector('#popup_image-popup');
+        this._popupImage = popupImagePopup.querySelector('.popup__image'); //большое фото
+        this._popupImageName = popupImagePopup.querySelector('.popup__image-name'); //подпись к большому фото
+
+        this._popupImage.src = this._link;
+        this._popupImage.alt = this._name;
+        this._popupImageName.textContent = this._name;
+        openPopup(this._popupImagePopup);  */
 
   _setEventListeners() {
     // Создаем работающий лайк
@@ -28,7 +39,7 @@ export class Card {
     this._card
       .querySelector('.elements__photo')
       .addEventListener('click', () => {
-        openPopupImagePopup(this._link, this._name);
+        this._openPopupImagePopup(this._link, this._name);
       });
   }
   renderCard() {
@@ -45,3 +56,5 @@ export class Card {
     return this._card;
   }
 }
+
+export { Card };

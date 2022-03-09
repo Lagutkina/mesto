@@ -1,5 +1,5 @@
-import { Card } from './Card';
-import { FormValidator } from './FormValidator';
+import { Card } from './Card.js';
+import { FormValidator } from './FormValidator.js';
 
 const popups = document.querySelectorAll('.popup'); //все попапы
 const profileEditBtn = document.querySelector('.profile__edit-btn'); //кнопка изменения профиля
@@ -14,7 +14,6 @@ const popupFormProfileEdit = document.querySelector(
   '.popup__form[name="profile_edit"]'
 ); //форма изменения профиля
 const TEMPLATE_SELECTOR = '#elements-template';
-const elementTemplate = document.querySelector('#elements-template').content; //темплейт
 const elements = document.querySelector('.elements'); //грид элементов
 
 const profileAddBtn = document.querySelector('.profile__add-btn'); //кнопка добавления фото
@@ -126,7 +125,8 @@ function submitPopupElementAdd(evt) {
   const card = new Card(
     inputPhotoName.value,
     inputPhotoLink.value,
-    TEMPLATE_SELECTOR
+    TEMPLATE_SELECTOR,
+    openPopupImagePopup
   );
   elements.prepend(card.renderCard());
   closePopup(popupElementAdd);
@@ -136,7 +136,7 @@ popupFormElementAdd.addEventListener('submit', submitPopupElementAdd); //выз�
 
 //Функция Открытие попапа с большим фото
 
-function openPopupImagePopup(link, name) {
+export function openPopupImagePopup(link, name) {
   popupImage.src = link;
   popupImage.alt = name;
   popupImageName.textContent = name;
@@ -171,40 +171,17 @@ const initialCards = [{
   },
 ];
 
-/* Функция добавления карточек на страницу из массива
-function renderElements(name, link) {
-  const element = elementTemplate
-    .querySelector('.elements__element')
-    .cloneNode(true);
-
-  // Создаем карточки и подписи
-  const elementsPhoto = element.querySelector('.elements__photo');
-  const elementsName = element.querySelector('.elements__name');
-
-  elementsPhoto.src = link;
-  elementsPhoto.alt = name;
-  elementsName.textContent = name;
-
- Создаем работающий лайк
-  const likeButton = element.querySelector('.elements__like-icon');
-  likeButton.addEventListener('click', function(evt) {
-    evt.target.classList.toggle('elements__like-icon_liked');
+// ВЫВОДИМ КАРТОЧКИ НА СТРАНИЦУ
+function renderCards() {
+  initialCards.forEach((item) => {
+    const card = new Card(
+      item.name,
+      item.link,
+      TEMPLATE_SELECTOR,
+      openPopupImagePopup
+    );
+    elements.append(card.renderCard());
   });
-  //Создаем кнопку удаления
-  const deleteButton = element.querySelector('.elements__delete');
-  deleteButton.addEventListener('click', function(evt) {
-    evt.target.closest('.elements__element').remove();
-  });
+}
 
-  //Добавляем событие открытие попапа по клику на фото
-  elementsPhoto.addEventListener('click', function() {
-    openPopupImagePopup(link, name);
-  }); 
-
-return element;
-}*/
-// выводим карточки на страницу
-initialCards.forEach((item) => {
-  const card = new Card(item.name, item.link, TEMPLATE_SELECTOR);
-  elements.append(card.renderCard());
-});
+renderCards();
