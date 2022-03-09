@@ -7,21 +7,11 @@ class Card {
   }
 
   _getTemplate() {
-      return document
-        .querySelector(this._templateSelector)
-        .content.querySelector('.elements__element')
-        .cloneNode(true);
-    }
-    /* //открытие большого попапа из фото
-      _openPopupImagePopup() {
-        this._popupImagePopup = document.querySelector('#popup_image-popup');
-        this._popupImage = popupImagePopup.querySelector('.popup__image'); //большое фото
-        this._popupImageName = popupImagePopup.querySelector('.popup__image-name'); //подпись к большому фото
-
-        this._popupImage.src = this._link;
-        this._popupImage.alt = this._name;
-        this._popupImageName.textContent = this._name;
-        openPopup(this._popupImagePopup);  */
+    return document
+      .querySelector(this._templateSelector)
+      .content.querySelector('.elements__element')
+      .cloneNode(true);
+  }
 
   _setEventListeners() {
     // Создаем работающий лайк
