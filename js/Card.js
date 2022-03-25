@@ -1,9 +1,9 @@
 class Card {
-  constructor(name, link, templateSelector, openPopupImagePopup) {
+  constructor(name, link, templateSelector, handleCardClick) {
     this._name = name; //
     this._link = link; //
     this._templateSelector = templateSelector;
-    this._openPopupImagePopup = openPopupImagePopup;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -29,7 +29,7 @@ class Card {
     this._card
       .querySelector('.elements__photo')
       .addEventListener('click', () => {
-        this._openPopupImagePopup(this._link, this._name);
+        this._handleCardClick();
       });
   }
   renderCard() {
