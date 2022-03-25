@@ -8,7 +8,6 @@ export class Popup {
     document.addEventListener('keydown', this._escClose);
   }
   close() {
-    console.log('p1p');
     this._popup.classList.remove('popup_open');
     document.removeEventListener('keydown', this._escClose);
   }

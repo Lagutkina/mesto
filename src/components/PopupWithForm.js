@@ -32,7 +32,6 @@ export class PopupWithForm extends Popup {
   }
   setEventListeners() {
     super.setEventListeners();
-    console.log(this._popup);
 
     this._popup
       .querySelector('.popup__form')

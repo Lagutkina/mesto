@@ -11,7 +11,6 @@ export class UserInfo {
     return userInfo;
   }
   setUserInfo(formData) {
-    console.log(this);
     this._name.textContent = formData['user-name'];
     this._about.textContent = formData.about;
   }

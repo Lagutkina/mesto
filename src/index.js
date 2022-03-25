@@ -30,9 +30,7 @@ function renderNewCard(name, link) {
 const cardList = new Section({
     items: initialCards,
     renderer: ({ name, link }) => {
-      console.log(name, link);
       const card = renderNewCard(name, link);
-      //console.log(card);
       cardList.addItemAppend(card);
     },
   },
