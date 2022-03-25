@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mesto</title>
 
-  <link rel="stylesheet" href="pages/index.css" />
+
 </head>
 
 <body class="page">
@@ -17,7 +17,7 @@
     </header>
     <main>
       <section class="profile">
-        <img class="profile__photo" src="./images/profile_photo.jpg" alt="фото профиля">
+        <img class="profile__photo" src="<%=require('./images/profile_photo.jpg')%>" alt="фото профиля">
         <div class="profile__info">
           <div class="profile__text">
 
@@ -112,8 +112,7 @@
 
     </div>
   </div>
-  <script src="js/validate.js"></script>
-  <script src="js/index.js"></script>
+
 </body>
 
 </html>
