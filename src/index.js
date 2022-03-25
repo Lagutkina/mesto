@@ -1,5 +1,6 @@
-import { Card } from './Card.js';
-import { FormValidator } from './FormValidator.js';
+import './styles/index.css';
+import { Card } from './components/Card.js';
+import { FormValidator } from './components/FormValidator.js';
 import {
   popupFormProfileEdit,
   popupFormElementAdd,
@@ -11,10 +12,10 @@ import {
   TEMPLATE_SELECTOR,
   popupFormConfig,
 } from './constants.js';
-import { PopupWithForm } from './PopupWithForm.js';
-import { PopupWithImage } from './PopupWithImage.js';
-import { UserInfo } from './UserInfo.js';
-import { Section } from './Section.js';
+import { PopupWithForm } from './components/PopupWithForm.js';
+import { PopupWithImage } from './components/PopupWithImage.js';
+import { UserInfo } from './components/UserInfo.js';
+import { Section } from './components/Section.js';
 
 //Генерация карточек на страницу
 

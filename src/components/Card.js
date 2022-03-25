@@ -23,24 +23,23 @@ class Card {
     const deleteButton = this._card.querySelector('.elements__delete');
     deleteButton.addEventListener('click', function(evt) {
       evt.target.closest('.elements__element').remove();
+      this._card = null;
     });
 
     //Добавляем событие открытие попапа по клику на фото
-    this._card
-      .querySelector('.elements__photo')
-      .addEventListener('click', () => {
-        this._handleCardClick();
-      });
+    this._cardPhoto.addEventListener('click', () => {
+      this._handleCardClick();
+    });
   }
   renderCard() {
     this._card = this._getTemplate();
+    this._cardPhoto = this._card.querySelector('.elements__photo');
 
     // Создаем карточки и подписи
-    const cardPhoto = this._card.querySelector('.elements__photo');
     const cardName = this._card.querySelector('.elements__name');
 
-    cardPhoto.src = this._link;
-    cardPhoto.alt = this._name;
+    this._cardPhoto.src = this._link;
+    this._cardPhoto.alt = this._name;
     cardName.textContent = this._name;
     this._setEventListeners();
     return this._card;
