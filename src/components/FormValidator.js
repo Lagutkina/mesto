@@ -6,6 +6,14 @@ class FormValidator {
     this._inputErrorClass = formConfig.inputErrorClass;
     this._errorClass = formConfig.errorClass;
     this._formElement = formElement;
+    //находим каждый инпут в форме
+    this._inputList = Array.from(
+      this._formElement.querySelectorAll(this._inputSelector)
+    );
+    //находим кнопку сабмит в форме
+    this._buttonElement = this._formElement.querySelector(
+      this._submitButtonSelector
+    );
   }
   enableValidation() {
     this._setEventListeners();
@@ -76,14 +84,7 @@ class FormValidator {
     this._formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
     });
-    //находим каждый инпут в форме
-    this._inputList = Array.from(
-      this._formElement.querySelectorAll(this._inputSelector)
-    );
-    //находим кнопку сабмит в форме
-    this._buttonElement = this._formElement.querySelector(
-      this._submitButtonSelector
-    );
+
     //выключаем кнопку с самого начала ()
     this._toggleButtonState();
 
