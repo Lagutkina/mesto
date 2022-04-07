@@ -29,6 +29,8 @@
 @import url(../blocks/elements/__like-icon/_liked/elements__like-icon_liked.css);
 @import url(../blocks/elements/__name/elements__name.css);
 @import url(../blocks/elements/__delete/elements__delete.css);
+@import url(../blocks/elements/__like-container/elements__like-container.css);
+@import url(../blocks/elements/__like-counter/elements__like-counter.css);
 
 /*FOOTER*/
 

@@ -41,7 +41,10 @@
             <img class="elements__photo">
             <div class="elements__caption">
               <h2 class="elements__name"></h2>
+              <div class="elements__like-container">
               <button type="button" class="elements__like-icon"></button>
+              <span class="elements__like-counter"></span>
+              </div>
             </div>
           </div>
         </template>
@@ -110,6 +113,32 @@
       </div>
 
 
+    </div>
+    <div id="popup_delete-popup" class="popup">
+      <div class="popup__container popup__container_type_form">
+        <button type="button" class="popup__close-btn"></button>
+        <h2 class="popup__title">Вы уверены?</h2>
+        <form name="image_delete" class="popup__form" novalidate>
+
+          <input class="popup__submit-btn" type="submit" value="Да">
+        </form>
+
+      </div>
+    </div>
+    <div id="popup_change-avatar" class="popup">
+      <div class="popup__container popup__container_type_form">
+        <button type="button" class="popup__close-btn"></button>
+        <h2 class="popup__title">Обновить аватар</h2>
+        <form name="change-avatar" class="popup__form" novalidate>
+          <div class="popup__field">
+            <input id="avatar-link-input" class="popup__input" placeholder="Ссылка на картинку" type="url" value="" name="avatar-link" required>
+            <span class="popup__input-error avatar-link-input-error"></span>
+          </div>
+
+          <input class="popup__submit-btn" type="submit" value="Сохранить">
+        </form>
+
+      </div>
     </div>
   </div>
 
