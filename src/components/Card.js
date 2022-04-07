@@ -12,19 +12,21 @@ class Card {
       .content.querySelector('.elements__element')
       .cloneNode(true);
   }
-
-  _setEventListeners() {
+  _toggleLike() {
     // Создаем работающий лайк
-    const likeButton = this._card.querySelector('.elements__like-icon');
-    likeButton.addEventListener('click', function(evt) {
-      evt.target.classList.toggle('elements__like-icon_liked');
-    });
-    //Создаем кнопку удаления
-    const deleteButton = this._card.querySelector('.elements__delete');
-    deleteButton.addEventListener('click', function(evt) {
-      evt.target.closest('.elements__element').remove();
-      this._card = null;
-    });
+    this._likeButton.classList.toggle('elements__like-icon_liked');
+  }
+  _deleteCard() {
+    //удалениие карточки
+    this._card.remove();
+    this._card = null;
+  }
+  _setEventListeners() {
+    //ставим слушатель на лайк
+    this._likeButton.addEventListener('click', () => this._toggleLike());
+
+    //ставим слушатель на кнопку удаления
+    this._deleteButton.addEventListener('click', () => this._deleteCard());
 
     //Добавляем событие открытие попапа по клику на фото
     this._cardPhoto.addEventListener('click', () => {
@@ -34,6 +36,8 @@ class Card {
   renderCard() {
     this._card = this._getTemplate();
     this._cardPhoto = this._card.querySelector('.elements__photo');
+    this._likeButton = this._card.querySelector('.elements__like-icon');
+    this._deleteButton = this._card.querySelector('.elements__delete');
 
     // Создаем карточки и подписи
     const cardName = this._card.querySelector('.elements__name');
