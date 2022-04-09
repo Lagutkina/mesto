@@ -7,49 +7,115 @@ import {
   profileName,
   profileAbout,
   profileEditBtn,
+  profilePhoto,
   profileAddBtn,
-  initialCards,
   TEMPLATE_SELECTOR,
   popupFormConfig,
+  popupFormAvatarChange,
 } from './constants.js';
 import { PopupWithForm } from './components/PopupWithForm.js';
 import { PopupWithImage } from './components/PopupWithImage.js';
+import { PopupWithConfirm } from './components/PopupWithConfirm.js';
 import { UserInfo } from './components/UserInfo.js';
 import { Section } from './components/Section.js';
+import { Api } from './components/Api.js';
 
-//Генерация карточек на страницу
+//создаем эксзепляр класса апи для нашей магии
 
-function renderNewCard(name, link) {
-  const card = new Card(name, link, TEMPLATE_SELECTOR, () =>
-    popupWithImage.open(link, name)
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-39',
+  headers: {
+    authorization: '8a5e8d02-9c7a-4149-95f9-bcf44b03ae6a',
+    'Content-Type': 'application/json',
+  },
+});
+
+//Функция герерации карточек из класса Card Генерация карточек на страницу
+
+function renderNewCard(cardItem, userId) {
+  const card = new Card(
+    cardItem,
+    TEMPLATE_SELECTOR,
+    () => popupWithImage.open(cardItem.link, cardItem.name),
+    () => popupWithConfirm.open({ removeCard: card.removeCard.bind(card) }),
+    () => api.addLike(cardItem._id),
+    () => api.deleteLike(cardItem._id),
+    () => api.deleteCard(cardItem._id),
+    userId
   );
   const newCard = card.renderCard();
   return newCard;
 }
 
-const cardList = new Section({
-    items: initialCards,
-    renderer: ({ name, link }) => {
-      const card = renderNewCard(name, link);
-      cardList.addItemAppend(card);
-    },
-  },
-  '.elements'
-);
-cardList.renderItems();
-
-//созданиие экземлпяра класса UserInfo
+//Добавляем массив карточек с сервера
+let cardList;
+//созданиие экземлпяра класса UserInfo и получениие информации о пользователе с сервера и добавление карточек с сервера
 const userInfo = new UserInfo({
   nameSelector: '.profile__name',
   aboutSelector: '.profile__about',
+  photoSelector: '.profile__photo',
 });
+
+api
+  .getUserInfo()
+  .then((userData) => {
+    userInfo.setUserInfo(userData);
+    userInfo.setProfileImage(userData.avatar);
+    //Добавляем массив карточек с сервера
+    api.getInitialCards().then((cardsFromServer) => {
+      cardList = new Section({
+          items: cardsFromServer,
+          renderer: (cardItem) => {
+            const card = renderNewCard(cardItem, userData._id);
+            cardList.addItemAppend(card);
+          },
+        },
+        '.elements'
+      );
+      cardList.renderItems();
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+//ПОПАП СМЕНЫ АВАТАРКИ
+const popupChangeAvatar = new PopupWithForm(
+  '#popup_change-avatar',
+  (formData) => {
+    api
+      .updateAvatar(formData.link)
+      .then(() => userInfo.setProfileImage(formData.link))
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => popupChangeAvatar.close());
+  }
+);
+popupChangeAvatar.setEventListeners();
+//открытие попапа смены автарки
+function openPopupChangeAvatar() {
+  changeAvatarValidator.disableButton();
+  popupChangeAvatar.open();
+}
+
+profilePhoto.addEventListener('click', openPopupChangeAvatar);
 
 //ПОПАП РЕДАКТИРОВАНИЯ ПРОФИЛЯ
 
-// Смена информации в профииле
+// Смена информации в профииле и отправка новой информации о профиле на сервер
 
-const profileEditPopup = new PopupWithForm('#popup_profile_edit', (formData) =>
-  userInfo.setUserInfo(formData)
+const profileEditPopup = new PopupWithForm(
+  '#popup_profile_edit',
+  (formData) => {
+    api
+      .updateProfile(formData.name, formData.about)
+      .then(() => userInfo.setUserInfo(formData))
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => profileEditPopup.close());
+  }
 );
 profileEditPopup.setEventListeners();
 
@@ -57,18 +123,26 @@ profileEditPopup.setEventListeners();
 
 function openProfileEditPopup() {
   const userData = {
-    'user-name': profileName.textContent,
+    name: profileName.textContent,
     about: profileAbout.textContent,
   };
   profileEditPopup.open(userData);
 }
 profileEditBtn.addEventListener('click', openProfileEditPopup);
 
-// ПОПАП ДОБАВЛЕНИЯ ФОТО
+// ПОПАП ДОБАВЛЕНИЯ ФОТО Добавление нового фота
 //создаем экземляр класса PopupWithForm для попапа добавлениия фото и передаем коллбэк для сабмита
 const elementAddPopup = new PopupWithForm('#popup_element_add', (formData) => {
-  const newCard = renderNewCard(formData['photo-name'], formData['photo-link']);
-  cardList.addItemPrepend(newCard);
+  api
+    .addNewCard(formData['photo-name'], formData['photo-link'])
+    .then((newCardData) => {
+      const newCard = renderNewCard(newCardData, newCardData.owner._id);
+      cardList.addItemPrepend(newCard);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => elementAddPopup.close());
 });
 elementAddPopup.setEventListeners();
 
@@ -84,6 +158,14 @@ profileAddBtn.addEventListener('click', openElementAddPopup);
 const popupWithImage = new PopupWithImage('#popup_image-popup');
 popupWithImage.setEventListeners();
 
+//ПОПАП ПОДТВЕРЖДЕНИЯ УДАЛЕНИЯ
+const popupWithConfirm = new PopupWithConfirm(
+  '#popup_delete-popup',
+  ({ removeCard }) => {
+    removeCard();
+  }
+);
+popupWithConfirm.setEventListeners();
 //ВАЛИДАЦИЯ ФОРМ//
 
 const profileEditValidator = new FormValidator(
@@ -96,3 +178,12 @@ const elementAddValidator = new FormValidator(
   popupFormElementAdd
 );
 elementAddValidator.enableValidation();
+
+const changeAvatarValidator = new FormValidator(
+  popupFormConfig,
+  popupFormAvatarChange
+);
+
+changeAvatarValidator.enableValidation();
+
+console.log(api.getInitialCards());
