@@ -36,7 +36,7 @@ class Card {
 
   _toggleLike() {
     // Создаем работающий лайк
-    this._likeButton.classList.toggle('elements__like-icon_liked');
+
     this._isLiked = !this._isLiked;
     let toggleLike;
     if (this._isLiked) {
@@ -47,6 +47,7 @@ class Card {
     toggleLike()
       .then((likedCardItem) => {
         this._likes = likedCardItem.likes.length;
+        this._syncLike();
         this._updateLikes();
       })
       .catch((err) => {
@@ -54,15 +55,11 @@ class Card {
       });
   }
   removeCard() {
-    this._deleteCard()
-      .then(() => {
-        //удалениие карточки с экрана
-        this._card.remove();
-        this._card = null;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    return this._deleteCard().then(() => {
+      //удалениие карточки с экрана
+      this._card.remove();
+      this._card = null;
+    });
   }
   _setEventListeners() {
     //ставим слушатель на лайк
@@ -87,6 +84,14 @@ class Card {
     }
   }
 
+  _syncLike() {
+    if (this._isLiked) {
+      this._likeButton.classList.add('elements__like-icon_liked');
+    } else {
+      this._likeButton.classList.remove('elements__like-icon_liked');
+    }
+  }
+
   renderCard() {
     this._card = this._getTemplate();
     this._cardPhoto = this._card.querySelector('.elements__photo');
@@ -101,9 +106,7 @@ class Card {
     this._cardPhoto.alt = this._name;
     cardName.textContent = this._name;
 
-    if (this._isLiked) {
-      this._likeButton.classList.add('elements__like-icon_liked');
-    }
+    this._syncLike();
 
     this._updateLikes();
     this._setEventListeners();

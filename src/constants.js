@@ -1,7 +1,6 @@
 export const popups = document.querySelectorAll('.popup'); //все попапы
 export const profileEditBtn = document.querySelector('.profile__edit-btn'); //кнопка изменения профиля
-export const profileName = document.querySelector('.profile__name');
-export const profileAbout = document.querySelector('.profile__about');
+
 export const profilePhoto = document.querySelector('.profile__photo-container');
 export const inputUserName = document.querySelector(
   '.popup__input[name="name"]'
